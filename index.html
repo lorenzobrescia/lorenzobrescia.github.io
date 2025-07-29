@@ -1,1 +1,131 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <title>Lorenzo Brescia</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="publications.js"></script>
+        
+    </head>
+    <body>
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <!-- <a class="navbar-brand" href="#">Lorenzo Brescia</a> -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#publications">Publications</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#teaching">Teaching activities</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="blog.html">Blog</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-4">
+                    <img src="images/personal_image.png" alt="Lorenzo Brescia" class="img-fluid rounded-circle">
+                    <h1>Lorenzo Brescia</h1>
+                    <div> <a href="https://dottorato-mds.campusnet.unito.it/do/home.pl">PhD candidate in Modeling and Data Science</a></div>
+                    <div> <a href="https://www.unito.it">University of Torino (Italy)</a></div>
+                    <div> <a href="https://laurea.informatica.unito.it/do/home.pl">Department of Computer Science</a></div>
+                    <div class="pb-3"> <a href="https://alpha.di.unito.it"> Alpha Research Group</a></div>
+                    
+                    <ul class="list-unstyled">
+                        <li class="pb-3">
+                            <a href="https://github.com/lorenzobrescia"><i class="fab fa-github fa-2x"></i></a>
+                            <a href="https://www.linkedin.com/in/lorenzo-brescia-033a13158/"><i class="fab fa-linkedin fa-2x ps-3"></i></a>
+                            <a href="https://scholar.google.com/citations?user=2Ild2_wAAAAJ"><i class="fas fa-graduation-cap fa-2x ps-3"></i></a>
+                            <a href="mailto:lorenzo.brescia@unito.it"><i class="fas fa-envelope fa-2x ps-3"></i> </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6 text-center text-md-start">
+                    <h2>Bio</h2>
+                    <p></p>
+                    <h2>Interests</h2>
+                    <ul class="list-unstyled">
+                        <li>Confidential Computing (TEEs)</li>
+                        <li>Distributed Systems</li>
+                        <li>High-Performance Computing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Education Section -->
+        <div class="container text-center" id="education">
+            <h2>Education</h2>
+            <div class="education-item mb-3">
+                <strong>PhD in Modeling and Data Science</strong>
+                <div class="text-muted small">
+                    <i class="fas fa-university me-1"></i>University of Torino, Italy<br>
+                    <i class="fas fa-calendar-alt me-1"></i>Nov 2023 - Present<br>
+                    <span class="badge bg-success">In Progress</span>
+                </div>
+            </div>
+
+            <div class="education-item mb-3">
+                <strong>Master's in Computer Science</strong>
+                <div class="text-muted small">
+                    <i class="fas fa-university me-1"></i>University of Torino, Italy<br>
+                    <i class="fas fa-calendar-alt me-1"></i> Dec. 2020 - Jul. 2023<br>
+                    <span class="badge bg-primary">110/110 with Honors</span>
+                </div>
+            </div>
+
+            <div class="education-item mb-3">
+                <strong>Bachelor's in Computer Science</strong>
+                <div class="text-muted small">
+                    <i class="fas fa-university me-1"></i>University of Torino, Italy<br>
+                    <i class="fas fa-calendar-alt me-1"></i> Oct. 2017 - Dec. 2020<br>
+                    <span class="badge bg-primary">110/110</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- List of publications -->
+        <div class="container text-center" id="publications">
+            <h2>Publications</h2>
+            <div class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading publications...</span>
+                </div>
+                <p class="mt-2 text-muted">Loading publications...</p>
+            </div>
+        </div>
+
+        <!-- Teaching Section -->
+        <div class="container text-center" id="teaching">
+            <h2>Teaching activities</h2>
+            <ul class="list-unstyled">
+                <li>Introduction to Programming</li>
+                <li>Data Structures and Algorithms</li>
+                <li>Web Development</li>
+            </ul>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-light text-center py-3">
+            <p>&copy; 2025 Lorenzo Brescia</p>
+        </footer>
+    </body>
+</html>

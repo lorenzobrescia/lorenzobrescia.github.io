@@ -1,0 +1,45 @@
+/* Remove default link styling for social media icons */
+.list-unstyled a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.list-unstyled a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Optional: Add hover effects for social media icons */
+.list-unstyled a i {
+    transition: opacity 0.3s ease;
+}
+
+.list-unstyled a:hover i {
+    opacity: 0.7;
+}
+
+/* Improved styling for text links (not in list-unstyled) */
+a:not(.list-unstyled a):not(.nav-link) {
+    color: #333;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+a:not(.list-unstyled a):not(.nav-link):hover {
+    color: #007bff;
+    border-bottom: 1px solid #007bff;
+}
+
+/* Special styling for bio section links */
+.col-md-6 > div a {
+    color: #6c757d;
+    font-weight: 500;
+    position: relative;
+}
+
+.col-md-6 > div a:hover {
+    color: #495057;
+}
+
+

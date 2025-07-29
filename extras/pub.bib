@@ -1,0 +1,29 @@
+@inproceedings{24:brescia:itadata,
+	abstract = {Data confidentiality is a critical issue in the digital age, impacting interactions between users and public services and between scientific computing organizations and Cloud and HPC providers. Performance in parallel computing is essential, yet techniques for establishing Trusted Execution Environments (TEEs) to ensure privacy in remote environments often negatively impact execution time. This paper aims to analyze the performance of a parallel bioinformatics workload for DNA alignment (Bowtie2) executed within the confidential enclaves of Intel SGX processors. The results provide encouraging insights regarding the feasibility of using SGX-based TEEs for parallel computing on large datasets. The findings indicate that, under conditions of high parallelization and with twice as many threads, workloads executed within SGX enclaves perform, on average, 15\% faster than non-confidential execution. This empirical demonstration supports the potential of SGX-based TEEs to effectively balance the need for privacy with the demands of high-performance computing.},
+	author = {Brescia, Lorenzo and Colonnelli, Iacopo and Aldinucci, Marco},
+	booktitle = {Proceedings of BigHPC2024: Special Track on Big Data and High-Performance Computing, co-located with the 3\textsuperscript{rd} Italian Conference on Big Data and Data Science, ITADATA2024},
+	editor = {Alessia Antelmi and Emanuele Carlini and Patrizio Dazzi},
+	keywords = {icsc, confidential},
+	publisher = {CEUR-WS.org},
+	series = {{CEUR} Workshop Proceedings},
+	title = {Performance Analysis on DNA Alignment Workload with Intel SGX Multithreading},
+	url = {https://ceur-ws.org/Vol-3785/paper107.pdf},
+	volume = {3785},
+	year = {2024},
+	bdsk-url-1 = {https://ceur-ws.org/Vol-3785/paper107.pdf}
+}
+
+@inproceedings{23:brescia:wide,
+	abstract = {In scientific environments, the frequent need to process substantial volumes of data poses a common challenge. Individuals tasked with executing these computations frequently encounter a deficit in local computational resources, leading them to opt for the facilities of a Cloud Service Provider (CSP) for data processing. However, the data subjected to these calculations may be subject to confidentiality constraints. This paper introduces a proof-of-concept framework that leverages Gramine LibOS and Intel SGX, enabling the protection of generic remote workflow computations through SGX enclaves as Trusted Execution Environments (TEEs). The framework entails the delineation of user and CSP behavior and has been implemented using Bash scripts. Furthermore, an infrastructure has been designed for the Data Center Attestation Primitives (DCAP) remote attestation mechanism, wherein the user gains trust in the proper instantiation of the enclave within the CSP. To assess the framework efficacy, it has been tested on two distinct workflows, one trivial and the other involving real-world bioinformatics applications for processing DNA data. The performance study revealed that the framework incurred an acceptable overhead, ranging from a factor of x1.4 to x1.8 compared to unsafe execution practice.},
+	author = {Brescia, Lorenzo and Aldinucci, Marco},
+	booktitle = {{P}roc. of the 2nd {W}orkshop on {W}orkflows in {D}istributed {E}nvironments (WiDE)},
+	date-modified = {2024-08-18 15:18:40 +0200},
+	doi = {10.1145/3642978.3652834},
+	keywords = {icsc, confidential},
+	location = {Athens, Greece},
+	pages = {8-13},
+	publisher = {ACM},
+	title = {{S}ecure {G}eneric {R}emote {W}orkflow {E}xecution with {TEE}s},
+	year = {2024},
+	bdsk-url-1 = {https://doi.org/10.1145/3642978.3652834}
+}
