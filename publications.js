@@ -28,7 +28,6 @@ class BibtexParser {
      */
     parseBibtex(content) {
         const publications = [];
-        // Split by @ to find entries
         const entries = content.split('@').filter(entry => entry.trim());
 
         entries.forEach(entry => {
@@ -39,7 +38,7 @@ class BibtexParser {
         });
 
         // Sort by year (newest first)
-        return publications.sort((a, b) => (b.year || 0) - (a.year || 0));
+        return publications.sort((a, b) => (parseInt(b.year) || 0) - (parseInt(a.year) || 0));
     }
 
     /**
@@ -55,22 +54,13 @@ class BibtexParser {
             const [, type, key] = typeMatch;
             const pub = { type: type.toLowerCase(), key };
 
-            // Parse fields
-            const fieldRegex = /(\w+)\s*=\s*\{([^}]+)\}/g;
-            let match;
+            // Parse fields with improved handling of braces and multi-line values
+            const fieldMatches = entry.matchAll(/(\w+)\s*=\s*\{([^}]*(?:\{[^}]*\}[^}]*)*)\}(?:,\s*)?/gs);
             
-            while ((match = fieldRegex.exec(entry)) !== null) {
+            for (const match of fieldMatches) {
                 const [, field, value] = match;
-                pub[field.toLowerCase()] = value.trim();
+                pub[field.toLowerCase()] = this.cleanField(value);
             }
-
-            // Handle multi-line values and nested braces
-            const multiLineFields = ['abstract', 'title'];
-            multiLineFields.forEach(field => {
-                if (pub[field]) {
-                    pub[field] = this.cleanField(pub[field]);
-                }
-            });
 
             return pub;
         } catch (error) {
@@ -80,47 +70,46 @@ class BibtexParser {
     }
 
     /**
-     * Clean and format field content
+     * Clean and format field content, preserving text in braces
      */
     cleanField(text) {
         return text
-            .replace(/\\\w+\{([^}]+)\}/g, '$1') // Remove LaTeX commands like \textsuperscript{}
-            .replace(/\{([^}]+)\}/g, '$1') // Remove remaining braces
             .replace(/\s+/g, ' ') // Normalize whitespace
             .trim();
     }
 
     /**
-     * Format authors for display
+     * Format authors for display with Lorenzo Brescia in bold
      */
     formatAuthors(authors) {
         if (!authors) return '';
+        
         return authors
             .split(' and ')
             .map(author => {
-                // Handle "Last, First" format
-                if (author.includes(',')) {
-                    const [last, first] = author.split(',').map(s => s.trim());
-                    return `${first} ${last}`;
+                const cleanAuthor = author.trim();
+                // Check if this is Lorenzo Brescia and make it bold
+                if (cleanAuthor === 'Lorenzo Brescia') {
+                    return '<strong>Lorenzo Brescia</strong>';
                 }
-                return author.trim();
+                return cleanAuthor;
             })
             .join(', ');
     }
 
     /**
-     * Get publication type icon
+     * Get publication type icon and description
      */
-    getTypeIcon(type) {
-        const icons = {
-            'inproceedings': 'fas fa-file-alt',
-            'article': 'fas fa-newspaper',
-            'book': 'fas fa-book',
-            'incollection': 'fas fa-book-open',
-            'techreport': 'fas fa-file-contract',
-            'misc': 'fas fa-file'
+    getTypeInfo(type) {
+        const typeMap = {
+            'inproceedings': { icon: 'fas fa-users', desc: 'Conference/Workshop Paper' },
+            'article': { icon: 'fas fa-file-alt', desc: 'Journal Article' },
+            'book': { icon: 'fas fa-book', desc: 'Book' },
+            'incollection': { icon: 'fas fa-book-open', desc: 'Book Chapter' },
+            'techreport': { icon: 'fas fa-clipboard', desc: 'Technical Report' },
+            'misc': { icon: 'fas fa-file', desc: 'Miscellaneous' }
         };
-        return icons[type] || 'fas fa-file';
+        return typeMap[type] || { icon: 'fas fa-file', desc: 'Publication' };
     }
 
     /**
@@ -133,9 +122,12 @@ class BibtexParser {
             return;
         }
 
+        // Create helper section
+        const helper = this.createHelper();
+        
         // Create publications list
         const publicationsList = document.createElement('div');
-        publicationsList.className = 'publications-list';
+        publicationsList.className = 'publications-list mt-4';
 
         if (this.publications.length === 0) {
             publicationsList.innerHTML = '<p class="text-muted">No publications found.</p>';
@@ -147,12 +139,56 @@ class BibtexParser {
         }
 
         // Replace existing content
-        const existingList = container.querySelector('.publications-list') || container.querySelector('ul');
-        if (existingList) {
-            existingList.replaceWith(publicationsList);
-        } else {
-            container.appendChild(publicationsList);
+        const existingContent = container.querySelector('.publications-list, .spinner-border')?.parentElement || container.querySelector('ul');
+        if (existingContent) {
+            container.removeChild(existingContent);
         }
+        
+        container.appendChild(helper);
+        container.appendChild(publicationsList);
+    }
+
+    /**
+     * Create helper section explaining publication types
+     */
+    createHelper() {
+        const helper = document.createElement('div');
+        helper.className = 'publication-types-helper mb-4 p-3 bg-light rounded';
+        
+        // Get unique publication types from actual publications
+        const existingTypes = [...new Set(this.publications.map(pub => pub.type))];
+        
+        // Filter types to only show those that exist in publications
+        const allTypes = [
+            { type: 'inproceedings', desc: 'Conference/Workshop Papers' },
+            { type: 'article', desc: 'Journal Articles' },
+            { type: 'book', desc: 'Books' },
+            { type: 'incollection', desc: 'Book Chapters' },
+            { type: 'techreport', desc: 'Technical Reports' },
+            { type: 'misc', desc: 'Miscellaneous' }
+        ];
+        
+        const typesToShow = allTypes.filter(({ type }) => existingTypes.includes(type));
+
+        if (typesToShow.length === 0) {
+            return helper; // Return empty helper if no publications
+        }
+
+        let helperHTML = '<h6 class="mb-2">Legend:</h6><div class="d-flex flex-wrap gap-3 justify-content-center">';
+        
+        typesToShow.forEach(({ type, desc }) => {
+            const typeInfo = this.getTypeInfo(type);
+            helperHTML += `
+                <span class="badge bg-secondary">
+                    <i class="${typeInfo.icon} me-1"></i>${desc}
+                </span>
+            `;
+        });
+        
+        helperHTML += '</div>';
+        helper.innerHTML = helperHTML;
+        
+        return helper;
     }
 
     /**
@@ -160,43 +196,26 @@ class BibtexParser {
      */
     createPublicationElement(pub) {
         const pubDiv = document.createElement('div');
-        pubDiv.className = 'publication-item mb-4 p-3 border rounded';
+        pubDiv.className = 'publication-item border-bottom pb-3 mb-3';
 
+        const typeInfo = this.getTypeInfo(pub.type);
         const title = pub.title || 'Untitled';
         const authors = this.formatAuthors(pub.author);
-        const year = pub.year || '';
         const venue = pub.booktitle || pub.journal || '';
-        const url = pub.url || pub['bdsk-url-1'] || '';
-        const doi = pub.doi || '';
+        const year = pub.year || '';
+        const url = pub.url || '';
 
         pubDiv.innerHTML = `
             <div class="d-flex align-items-start">
-                <i class="${this.getTypeIcon(pub.type)} text-primary me-3 mt-1"></i>
                 <div class="flex-grow-1">
-                    <h5 class="mb-2">
-                        ${url ? `<a href="${url}" target="_blank" class="text-decoration-none">${title}</a>` : title}
-                    </h5>
-                    ${authors ? `<p class="mb-1 text-muted"><strong>Authors:</strong> ${authors}</p>` : ''}
-                    ${venue ? `<p class="mb-1 text-muted"><strong>Venue:</strong> ${venue}</p>` : ''}
-                    ${year ? `<p class="mb-1 text-muted"><strong>Year:</strong> ${year}</p>` : ''}
-                    ${pub.abstract ? `
-                        <div class="mt-2">
-                            <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#abstract-${pub.key}" aria-expanded="false">
-                                Show Abstract
-                            </button>
-                            <div class="collapse mt-2" id="abstract-${pub.key}">
-                                <div class="card card-body">
-                                    <small>${pub.abstract}</small>
-                                </div>
-                            </div>
-                        </div>
-                    ` : ''}
-                    ${doi || url ? `
-                        <div class="mt-2">
-                            ${doi ? `<a href="https://doi.org/${doi}" target="_blank" class="btn btn-sm btn-primary me-2">DOI</a>` : ''}
-                            ${url ? `<a href="${url}" target="_blank" class="btn btn-sm btn-outline-primary">PDF</a>` : ''}
-                        </div>
-                    ` : ''}
+                    <div class="publication-title mb-1">
+                        <i class="${typeInfo.icon} text-primary me-2"></i>
+                        ${url ? `<a href="${url}" target="_blank" class="text-decoration-none fw-bold">${title}</a>` : `<span class="fw-bold">${title}</span>`}
+                    </div>
+                    ${authors ? `<div class="publication-authors text-muted small mb-1">${authors}${year ? ` (${year})` : ''}</div>` : ''}
+                    <div class="publication-meta small text-secondary">
+                        ${venue ? `<span><i class="fas fa-map-marker-alt me-1"></i>${venue}</span>` : ''}
+                    </div>
                 </div>
             </div>
         `;
@@ -211,7 +230,7 @@ class BibtexParser {
         const container = document.getElementById('publications');
         if (container) {
             const errorDiv = document.createElement('div');
-            errorDiv.className = 'alert alert-warning';
+            errorDiv.className = 'alert alert-warning mt-4';
             errorDiv.innerHTML = `
                 <i class="fas fa-exclamation-triangle me-2"></i>
                 Unable to load publications. Please check if the BibTeX file exists.

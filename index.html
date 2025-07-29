@@ -9,6 +9,7 @@
         <title>Lorenzo Brescia</title>
         <link rel="stylesheet" href="style.css">
         <script src="publications.js"></script>
+        <script src="teaching.js"></script>
         
     </head>
     <body>
@@ -42,93 +43,150 @@
         </nav>
 
         <!-- Hero Section -->
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 text-center text-md-start mb-4">
-                    <img src="images/personal_image.png" alt="Lorenzo Brescia" class="img-fluid rounded-circle">
-                    <h1>Lorenzo Brescia</h1>
-                    <div> <a href="https://dottorato-mds.campusnet.unito.it/do/home.pl">PhD candidate in Modeling and Data Science</a></div>
-                    <div> <a href="https://www.unito.it">University of Torino (Italy)</a></div>
-                    <div> <a href="https://laurea.informatica.unito.it/do/home.pl">Department of Computer Science</a></div>
-                    <div class="pb-3"> <a href="https://alpha.di.unito.it"> Alpha Research Group</a></div>
-                    
-                    <ul class="list-unstyled">
-                        <li class="pb-3">
-                            <a href="https://github.com/lorenzobrescia"><i class="fab fa-github fa-2x"></i></a>
-                            <a href="https://www.linkedin.com/in/lorenzo-brescia-033a13158/"><i class="fab fa-linkedin fa-2x ps-3"></i></a>
-                            <a href="https://scholar.google.com/citations?user=2Ild2_wAAAAJ"><i class="fas fa-graduation-cap fa-2x ps-3"></i></a>
-                            <a href="mailto:lorenzo.brescia@unito.it"><i class="fas fa-envelope fa-2x ps-3"></i> </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6 text-center text-md-start">
-                    <h2>Bio</h2>
-                    <p></p>
-                    <h2>Interests</h2>
-                    <ul class="list-unstyled">
-                        <li>Confidential Computing (TEEs)</li>
-                        <li>Distributed Systems</li>
-                        <li>High-Performance Computing</li>
-                    </ul>
+        <div class="bg-light py-1 mb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-4">
+                        <img src="images/personal_image.png" alt="Lorenzo Brescia" class="img-fluid rounded-circle mb-3 shadow" style="width: 200px; height: 200px; object-fit: cover;">
+                        <h1 class="display-5 fw-bold text-dark mb-3">Lorenzo Brescia</h1>
+                        <div class="mb-1"> <a href="https://dottorato-mds.campusnet.unito.it/do/home.pl">PhD candidate in Modeling and Data Science</a></div>
+                        <div class="mb-1"> <a href="https://www.unito.it">University of Torino (Italy)</a></div>
+                        <div class="mb-1"> <a href="https://laurea.informatica.unito.it/do/home.pl">Department of Computer Science</a></div>
+                        <div class="mb-4"> <a href="https://alpha.di.unito.it"> Alpha Research Group</a></div>
+                        
+                        <h2 class="h4 text-secondary mb-3">Contact</h2>
+                        <div class="d-flex flex-wrap justify-content-center justify-content-md-start gap-3 mb-3">
+                            <a href="https://github.com/lorenzobrescia" class="text-dark"><i class="fab fa-github fa-2x"></i></a>
+                            <a href="https://www.linkedin.com/in/lorenzo-brescia-033a13158/" class="text-primary"><i class="fab fa-linkedin fa-2x"></i></a>
+                            <a href="mailto:lorenzo.brescia@unito.it" class="text-danger"><i class="fas fa-envelope fa-2x"></i></a>
+                            <a href="https://scholar.google.com/citations?user=2Ild2_wAAAAJ" class="text-info"><i class="fas fa-graduation-cap fa-2x"></i></a>
+                            <a href="https://orcid.org/0009-0005-1147-496X" class="text-success"><i class="fab fa-orcid fa-2x"></i></a>
+                            <a href="https://dblp.org/pid/373/3489.html" class="btn btn-dark btn-sm text-white">DBLP</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center text-md-start">
+                        <div class="bg-white rounded-3 p-4 shadow-sm border">
+                            <h2 class="h4 text-secondary mb-3">Bio</h2>
+                            <div class="text-muted lh-lg">
+                                Welcome to my personal webpage! Here you can find information about my research, publications, and teaching activities. In addition to my academic work, I am also passionate about sharing knowledge through my blog, where I discuss various topics related to computer science and data science.
+                            </div>
+                            
+                            <h2 class="h4 text-secondary mb-3 mt-4">Interests</h2>
+                            <div class="bg-primary bg-opacity-10 rounded-3 p-3">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-2 text-dark fw-medium">
+                                        <i class="fas fa-chevron-right text-primary me-2"></i>Confidential Computing (TEEs)
+                                    </li>
+                                    <li class="mb-2 text-dark fw-medium">
+                                        <i class="fas fa-chevron-right text-primary me-2"></i>Distributed Systems
+                                    </li>
+                                    <li class="mb-0 text-dark fw-medium">
+                                        <i class="fas fa-chevron-right text-primary me-2"></i>High-Performance Computing
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Education Section -->
-        <div class="container text-center" id="education">
-            <h2>Education</h2>
-            <div class="education-item mb-3">
-                <strong>PhD in Modeling and Data Science</strong>
-                <div class="text-muted small">
-                    <i class="fas fa-university me-1"></i>University of Torino, Italy<br>
-                    <i class="fas fa-calendar-alt me-1"></i>Nov 2023 - Present<br>
-                    <span class="badge bg-success">In Progress</span>
+        <section class="py-3 mb-1">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-6 fw-bold text-primary mb-3">
+                        <i class="fas fa-graduation-cap me-3"></i>Education
+                    </h2>
+                    <div class="border-bottom border-primary border-3 mx-auto" style="width: 80px;"></div>
                 </div>
-            </div>
+                
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="education-item mb-4 p-4 bg-white rounded-3 shadow-sm border-start border-success border-4">
+                            <h5 class="fw-bold text-dark mb-2">PhD in Modeling and Data Science</h5>
+                            <div class="text-muted">
+                                <div class="mb-2">
+                                    <i class="fas fa-university me-2 text-primary"></i>University of Torino, Italy
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fas fa-calendar-alt me-2 text-primary"></i>Nov 2023 - <span class="badge bg-success fs-6">Present</span>
+                                </div>
+                                
+                            </div>
+                        </div>
 
-            <div class="education-item mb-3">
-                <strong>Master's in Computer Science</strong>
-                <div class="text-muted small">
-                    <i class="fas fa-university me-1"></i>University of Torino, Italy<br>
-                    <i class="fas fa-calendar-alt me-1"></i> Dec. 2020 - Jul. 2023<br>
-                    <span class="badge bg-primary">110/110 with Honors</span>
-                </div>
-            </div>
+                        <div class="education-item mb-4 p-4 bg-white rounded-3 shadow-sm border-start border-info border-4">
+                            <h5 class="fw-bold text-dark mb-2">Visiting PhD Period</h5>
+                            <div class="text-muted">
+                                <div class="mb-2">
+                                    <i class="fas fa-university me-2 text-primary"></i>University of Neuchâtel, Switzerland
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fas fa-calendar-alt me-2 text-primary"></i>Oct. 2024 - Apr. 2025
+                                </div>
+                            </div>
+                        </div>
 
-            <div class="education-item mb-3">
-                <strong>Bachelor's in Computer Science</strong>
-                <div class="text-muted small">
-                    <i class="fas fa-university me-1"></i>University of Torino, Italy<br>
-                    <i class="fas fa-calendar-alt me-1"></i> Oct. 2017 - Dec. 2020<br>
-                    <span class="badge bg-primary">110/110</span>
-                </div>
-            </div>
-        </div>
+                        <div class="education-item mb-4 p-4 bg-white rounded-3 shadow-sm border-start border-info border-4">
+                            <h5 class="fw-bold text-dark mb-2">Master's in Computer Science</h5>
+                            <div class="text-muted">
+                                <div class="mb-2">
+                                    <i class="fas fa-university me-2 text-primary"></i>University of Torino, Italy
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fas fa-calendar-alt me-2 text-primary"></i>Dec. 2020 - Jul. 2023
+                                </div>
+                                <span class="badge bg-primary fs-6">110/110 with Honors</span>
+                            </div>
+                        </div>
 
-        <!-- List of publications -->
-        <div class="container text-center" id="publications">
-            <h2>Publications</h2>
-            <div class="text-center">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading publications...</span>
+                        <div class="education-item mb-4 p-4 bg-white rounded-3 shadow-sm border-start border-info border-4">
+                            <h5 class="fw-bold text-dark mb-2">Bachelor's in Computer Science</h5>
+                            <div class="text-muted">
+                                <div class="mb-2">
+                                    <i class="fas fa-university me-2 text-primary"></i>University of Torino, Italy
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fas fa-calendar-alt me-2 text-primary"></i>Oct. 2017 - Dec. 2020
+                                </div>
+                                <span class="badge bg-primary fs-6">110/110</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <p class="mt-2 text-muted">Loading publications...</p>
             </div>
-        </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section class="py-3 mb-1 bg-light">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-6 fw-bold text-primary mb-3">
+                        <i class="fas fa-file-alt me-3"></i>Publications
+                    </h2>
+                    <div class="border-bottom border-primary border-3 mx-auto" style="width: 80px;"></div>
+                </div>
+                <div id="publications" class="text-center"></div>
+            </div>
+        </section>
 
         <!-- Teaching Section -->
-        <div class="container text-center" id="teaching">
-            <h2>Teaching activities</h2>
-            <ul class="list-unstyled">
-                <li>Introduction to Programming</li>
-                <li>Data Structures and Algorithms</li>
-                <li>Web Development</li>
-            </ul>
-        </div>
+        <section class="py-3 mb-1">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="display-6 fw-bold text-primary mb-3">
+                        <i class="fas fa-chalkboard-teacher me-3"></i>Teaching Activities
+                    </h2>
+                    <div class="border-bottom border-primary border-3 mx-auto" style="width: 80px;"></div>
+                </div>
+                <div id="teaching" class="text-center"></div>
+            </div>
+        </section>
 
         <!-- Footer -->
         <footer class="bg-light text-center py-3">
-            <p>&copy; 2025 Lorenzo Brescia</p>
+            <p>&copy; 2025 Lorenzo Brescia. Content licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a></p>
         </footer>
     </body>
 </html>
