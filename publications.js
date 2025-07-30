@@ -6,6 +6,7 @@
 class BibtexParser {
     constructor() {
         this.publications = [];
+        this.activeFilters = new Set(); // Track active filters
     }
 
     /**
@@ -132,16 +133,26 @@ class BibtexParser {
         if (this.publications.length === 0) {
             publicationsList.innerHTML = '<p class="text-muted">No publications found.</p>';
         } else {
-            this.publications.forEach(pub => {
-                const pubElement = this.createPublicationElement(pub);
-                publicationsList.appendChild(pubElement);
-            });
+            const visiblePublications = this.getVisiblePublications();
+            if (visiblePublications.length === 0) {
+                publicationsList.innerHTML = '<p class="text-muted">No publications match the selected filters.</p>';
+            } else {
+                visiblePublications.forEach(pub => {
+                    const pubElement = this.createPublicationElement(pub);
+                    publicationsList.appendChild(pubElement);
+                });
+            }
         }
 
-        // Replace existing content
-        const existingContent = container.querySelector('.publications-list, .spinner-border')?.parentElement || container.querySelector('ul');
-        if (existingContent) {
-            container.removeChild(existingContent);
+        // Replace existing content properly
+        const existingHelper = container.querySelector('.publication-types-helper');
+        const existingList = container.querySelector('.publications-list');
+        
+        if (existingHelper) {
+            container.removeChild(existingHelper);
+        }
+        if (existingList) {
+            container.removeChild(existingList);
         }
         
         container.appendChild(helper);
@@ -153,7 +164,7 @@ class BibtexParser {
      */
     createHelper() {
         const helper = document.createElement('div');
-        helper.className = 'publication-types-helper mb-4 p-3 bg-light rounded';
+        helper.className = 'publication-types-helper mb-4 p-3 bg-white rounded-3 shadow-sm border';
         
         // Get unique publication types from actual publications
         const existingTypes = [...new Set(this.publications.map(pub => pub.type))];
@@ -174,19 +185,57 @@ class BibtexParser {
             return helper; // Return empty helper if no publications
         }
 
-        let helperHTML = '<h6 class="mb-2">Legend:</h6><div class="d-flex flex-wrap gap-3 justify-content-center">';
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'mb-3';
+        headerDiv.innerHTML = '<h6 class="mb-0 text-secondary">Legend (click to filter)</h6>';
+        helper.appendChild(headerDiv);
+
+        const badgesContainer = document.createElement('div');
+        badgesContainer.className = 'd-flex flex-wrap gap-2 justify-content-center';
         
         typesToShow.forEach(({ type, desc }) => {
             const typeInfo = this.getTypeInfo(type);
-            helperHTML += `
-                <span class="badge bg-secondary">
-                    <i class="${typeInfo.icon} me-1"></i>${desc}
-                </span>
-            `;
+            const isActive = this.activeFilters.has(type);
+            
+            const badge = document.createElement('span');
+            badge.className = `badge filter-badge ${isActive ? 'bg-primary' : 'bg-secondary'}`;
+            badge.style.cssText = `cursor: pointer; transition: all 0.3s ease; ${isActive ? '' : 'opacity: 0.7;'}`;
+            badge.setAttribute('data-type', type);
+            badge.innerHTML = `<i class="${typeInfo.icon} me-1"></i>${desc}`;
+            
+            // Add click event listener
+            badge.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('Badge clicked:', type); // Debug log
+                this.toggleFilter(type);
+            });
+            
+            // Add hover effects
+            badge.addEventListener('mouseenter', () => {
+                badge.style.opacity = '1';
+            });
+            badge.addEventListener('mouseleave', () => {
+                if (!this.activeFilters.has(type)) {
+                    badge.style.opacity = '0.7';
+                }
+            });
+            
+            badgesContainer.appendChild(badge);
         });
         
-        helperHTML += '</div>';
-        helper.innerHTML = helperHTML;
+        helper.appendChild(badgesContainer);
+        
+        // Add count display
+        const totalCount = this.publications.length;
+        const visibleCount = this.getVisiblePublications().length;
+        const countDiv = document.createElement('div');
+        countDiv.className = 'text-center mt-3';
+        countDiv.innerHTML = `
+            <small class="text-muted">
+                Showing ${visibleCount} of ${totalCount} publications
+            </small>
+        `;
+        helper.appendChild(countDiv);
         
         return helper;
     }
@@ -238,10 +287,37 @@ class BibtexParser {
             container.appendChild(errorDiv);
         }
     }
+
+    /**
+     * Get publications that should be visible based on active filters
+     */
+    getVisiblePublications() {
+        if (this.activeFilters.size === 0) {
+            return this.publications; // Show all if no filters active
+        }
+        return this.publications.filter(pub => this.activeFilters.has(pub.type));
+    }
+
+    /**
+     * Toggle filter for a publication type
+     */
+    toggleFilter(type) {
+        console.log('Toggling filter for:', type); // Debug log
+        console.log('Current filters:', Array.from(this.activeFilters)); // Debug log
+        
+        if (this.activeFilters.has(type)) {
+            this.activeFilters.delete(type);
+        } else {
+            this.activeFilters.add(type);
+        }
+        
+        console.log('New filters:', Array.from(this.activeFilters)); // Debug log
+        this.renderPublications();
+    }
 }
 
 // Initialize when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    const parser = new BibtexParser();
-    parser.loadPublications();
+    const bibtexParser = new BibtexParser();
+    bibtexParser.loadPublications();
 });
